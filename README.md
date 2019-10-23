@@ -4,6 +4,7 @@ That code allows your to have a simple shopping list app in your private server.
 
 ### Installation
 Run the following commands after cloning:
+
 -npm install
 
 -sudo service mongod start

@@ -1,0 +1,45 @@
+<div class="row">
+    {{#if total_num}}
+    <div class="col-md-3">
+        <div class="card"> 
+            <div class="card-body">
+                <h4 class="card-title">
+                    Total: {{total_num}} productos
+                </h4>
+                <p>{{descripcion}}</p>
+                <form action="/eliminar-todo?_method=DELETE" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-block btn-sm" type="submit">Vaciar Lista</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="col-md-3" style="padding-top: 10px;">
+        <div class="card"> 
+            <div class="card-body">
+                <h4 class="card-title">
+                    Añadir Nuevo Producto
+                </h4>
+                <p>{{descripcion}}</p>
+                <a class="btn btn-info btn-block btn-sm" href='/notes/add'>Añadir</a>
+            </div>
+        </div>
+    </div>
+    {{#each notas}}
+    <div class="col-md-3" style="padding-top: 10px;">
+        <div class="card"> 
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{titulo}} 
+                </h4>
+                <form action="/notes/eliminar-nota/{{_id}}?_method=DELETE" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-block btn-sm" type="submit">Eliminar</button>
+                <a class="btn btn-success btn-block btn-sm" href="/notes/edit/{{_id}}">Editar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

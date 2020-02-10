@@ -1,13 +1,12 @@
 <div class="col-md-4 mx-auto">
     <div class="card">
         <div class="card-header">
-            <h3>Editar Elemento</h3>
+            <h3>Editar Lista</h3>
         </div>
         <div class="card-body">
-            <form action="/notes/editar-nota/{{nota._id}}?_method=PUT" method="POST">
-            <input type="hidden" name="_method" value="PUT">
+            <form action="/listas/{{list.id}}/edit_list" method="POST">
                 <div class="form-group">
-                    <input type="text" name="txt_titulo" class="form-control" placeholder="Nombre" value="{{nota.titulo}}">
+                    <input type="text" name="fullname" class="form-control" placeholder="Nombre" value="{{list.fullname}}">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Guardar</button>

@@ -1,7 +1,10 @@
 const express=require('express');
 const path=require('path');
+const morgan=require('morgan')
 const exphbs=require('express-handlebars');
 const methodOverride=require('method-override');
+const MySQLStore=require('express-mysql-session');
+const { database }=require('./keys');
 const session=require('express-session');
 const flash=require('connect-flash');
 
@@ -11,7 +14,7 @@ require('./database');
 
 
 // Settings
-app.set('port', process.env.PORT || 2000);
+app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
@@ -26,10 +29,14 @@ app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'mysecretapp',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized:false,
+    store: new MySQLStore(database) 
 }));
 app.use(flash());
+app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 
 // Global Variables
@@ -42,9 +49,9 @@ app.use((req,res,next)=>{
 });
 
 // Routes
-app.use(require('./routes/index'));
 app.use(require('./routes/productos'));
-
+app.use('/listas',require('./routes/listas'));
+app.get('/', (req,res)=>res.redirect('/listas'));
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 

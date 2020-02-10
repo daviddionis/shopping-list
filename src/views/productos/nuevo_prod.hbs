@@ -5,9 +5,9 @@
             <h3>Nuevo Producto</h3>
         </div>
         <div class="card-body">
-            <form action="/notes/agregar-nota" method="POST">
+            <form action="/listas/{{id_lista}}/add_prod" method="POST">
                 <div class="form-group">
-                    <input type="text" placeholder="Nombre" name="txt_titulo" class="form-control" autofocus>
+                    <input type="text" placeholder="Nombre" name="txt_fullname" class="form-control" autofocus>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Enviar</button>

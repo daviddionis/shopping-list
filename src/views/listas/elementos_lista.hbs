@@ -21,7 +21,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                        <a href="/listas/{{id_lista}}/delete_all" class="btn btn-primary btn-danger">Vaciar Lista</a>
+                        <a href="/listas/{{lista_id}}/delete_all" class="btn btn-primary btn-danger">Vaciar Lista</a>
                     </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                 <h4 class="card-title">
                     Añadir Nuevo Producto
                 </h4>
-                <a class="btn btn-info btn-block btn-sm" href='/listas/{{id_lista}}/add_prod'>Añadir</a>
+                <a class="btn btn-info btn-block btn-sm" href='/listas/{{lista_id}}/add_prod'>Añadir</a>
             </div>
         </div>
     </div>
@@ -45,10 +45,10 @@
         <div class="card"> 
             <div class="card-body">
                 <h4 class="card-title">
-                    {{this.fullname}} 
+                    {{this.name_producto}} 
                 </h4>
-                <a class="btn btn-danger btn-block btn-sm" href="/listas/{{../id_lista}}/delete_prod/{{this.id}}">Eliminar</a>
-                <a class="btn btn-success btn-block btn-sm" href="/listas/{{../id_lista}}/edit_prod/{{this.id}}">Editar</a>
+                <a class="btn btn-danger btn-block btn-sm" href="/listas/{{../lista_id}}/delete_prod/{{this.producto_id}}">Eliminar</a>
+                <a class="btn btn-success btn-block btn-sm" href="/listas/{{../lista_id}}/edit_prod/{{this.producto_id}}">Editar</a>
             </div>
         </div>
     </div>

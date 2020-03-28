@@ -1,6 +1,5 @@
 const router=require('express').Router();
 const pool=require('../database');
-const {createTable}=require('../helpers/helper');
 
 router.get('/', async(req,res)=>{
     const listas=await pool.query('SELECT * FROM listas');
@@ -12,21 +11,34 @@ router.get('/add', async(req,res)=>{
     res.render('listas/nueva_lista');
 });
 router.post('/add', async(req,res)=>{
-    
-    res.redirect('/');
+    pool.query('INSERT INTO listas SET ?',[req.body])
+        .then(response=>res.redirect('/'))
+        .catch(err=>res.send(err));
 });
 
 router.get('/:id_lista/delete_all', async(req,res)=>{
-    await pool.query(`DROP TABLE ${req.params.id_lista}_table`);
-    await createTable(req.params.id_lista);
-    res.redirect(`/listas/${req.params.id_lista}`);
+    pool.query('DELETE FROM productos WHERE lista_id = ?', [req.params.id_lista])
+        .then(response=>{
+            res.redirect(`/listas/${req.params.id_lista}`);
+        })
+        .catch(err=>res.send(err));
+    
 
 });
 router.get('/:id_lista/delete_list', async(req,res)=>{
-    await pool.query(`DROP TABLE ${req.params.id_lista}_table`);
-    await pool.query(`DELETE FROM listas WHERE ID=${req.params.id_lista}`);
-    req.flash('msg_exito', 'Lista eliminada exitosamente'); 
-    res.redirect('/');
+    pool.query('DELETE FROM productos WHERE lista_id = ?', [req.params.id_lista])
+        .then(response=>{
+            pool.query('DELETE FROM listas WHERE lista_id = ?',[req.params.id_lista], (err)=>{
+                if(err){
+                    res.send(err);
+                }else{
+                    req.flash('msg_exito', 'Lista eliminada exitosamente'); 
+                    res.redirect('/');
+                }
+            });
+        })
+        .catch(err=>res.send(err));
+    
 });
 router.get('/:id_lista/edit_list', async(req,res)=>{
     const data=await pool.query(`SELECT * FROM listas WHERE ID=${req.params.id_lista}`);

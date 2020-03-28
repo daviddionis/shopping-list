@@ -12,11 +12,7 @@ router.get('/add', async(req,res)=>{
     res.render('listas/nueva_lista');
 });
 router.post('/add', async(req,res)=>{
-    await pool.query('INSERT INTO listas set ?',[{fullname: req.body.txt_fullname}]);
-    const row=await pool.query(`SELECT ID FROM listas WHERE fullname ='${req.body.txt_fullname}'`);
-    const id=row[0].ID;
-    console.log(id);
-    await createTable(id);
+    
     res.redirect('/');
 });
 

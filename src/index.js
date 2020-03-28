@@ -3,9 +3,6 @@ const path=require('path');
 const morgan=require('morgan')
 const exphbs=require('express-handlebars');
 const methodOverride=require('method-override');
-const MySQLStore=require('express-mysql-session');
-const { database }=require('./keys');
-const session=require('express-session');
 const flash=require('connect-flash');
 
 // Initiliazations
@@ -27,12 +24,6 @@ app.set('view engine', '.hbs');
 // Middlewares
 app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
-app.use(session({
-    secret: 'mysecretapp',
-    resave: false,
-    saveUninitialized:false,
-    store: new MySQLStore(database) 
-}));
 app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));

@@ -1,17 +1,24 @@
+DROP DATABASE shopping_list;
+
 CREATE DATABASE shopping_list;
 
 USE shopping_list;
 
----Users table
 CREATE TABLE listas(
-    ID INT(11) NOT NULL ,
-    fullname VARCHAR(30) NOT NULL 
+    lista_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL
 );
 
-ALTER TABLE listas
-    ADD PRIMARY KEY (id);
-
-ALTER TABLE listas
-    MODIFY id INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+CREATE TABLE productos(
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    lista_id INT,
+    FOREIGN KEY (lista_id) REFERENCES listas(lista_id)
+);
 
 DESCRIBE listas;
+
+INSERT INTO listas (name) VALUES ('Mercadona');
+INSERT INTO productos (name, lista_id) VALUES ('Cacao',1);
+
+SELECT * FROM  productos JOIN listas;
